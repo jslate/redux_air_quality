@@ -39,9 +39,15 @@ class LocationSelect extends React.Component {
     });
   }
 
+  onChange = (event) => {
+    this.props.onChange(event);
+    this.fetchLocationAirQuality(event);
+  }
+
   render() {
     return (
-      <select onChange={this.fetchLocationAirQuality}>
+      <select onChange={this.onChange}>
+        <option>Location</option>
         {this.props.locations.map((location) => {
           return (
             <option key={location.id} value={location.id}>{location.name}</option>

@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  /*text-align: center;*/
+  margin-top: 20px;
 }
 
 .App-logo {
@@ -22,7 +23,42 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.block {
+  padding: 15px;
+  margin: 10px;
+}
+
+.block.good {
+  background-color: #A7CC46;
+}
+
+.block.moderate {
+  background-color: #FEEF35;
+}
+
+.block.unhealthy-sensitive {
+  background-color: #F48E31;
+}
+
+.block.unhealthy {
+  background-color: #EB222D;
+}
+
+.block.very-unhealthy {
+  background-color: #A00D4B;
+}
+
+.block.hazardous {
+  background-color: #861A1F;
+  color: #fff;
+}
+
+form {
+  /*padding: 15px;*/
+  padding-bottom: 10px;
+  margin: 10px;
+}
+
+input, select {
+  margin-right: 10px;
 }

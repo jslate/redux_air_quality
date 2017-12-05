@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { createStore } from 'redux';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import './App.css';
 import Locations from './Locations';
 import AddForm from './AddForm';
@@ -17,17 +16,22 @@ const reducer = (state, action) => {
           if (location.id === action.locationId) {
             return {
               ...location,
-              dates: action.dates
-            }
+              dates: action.dates,
+            };
           }
           return location;
-        })
-      }
+        }),
+      };
     case ADD_BLOCK:
       return Object.assign({}, state, {
         blocks: [
           ...state.blocks || [],
-          { locationId: action.location, exertion: action.exertion, time: action.time, minutes: action.minutes },
+          {
+            locationId: action.location,
+            exertion: action.exertion,
+            time: action.time,
+            minutes: action.minutes,
+          },
         ],
       });
     default:
@@ -37,31 +41,34 @@ const reducer = (state, action) => {
 
 const store = createStore(
   reducer,
-  { locations: Locations, blocks: [
-    { time: 1512497760, locationId: 213, exertion: 'low', minutes: 90},
-    { time: 1512507760, locationId: 14, exertion: 'moderate', minutes: 120},
-    { time: 1512398760, locationId: 289, exertion: 'high', minutes: 30},
-  ] },
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  {
+    locations: Locations,
+    blocks: [
+      {
+        time: 1512497760, locationId: 213, exertion: 'low', minutes: 90,
+      },
+      {
+        time: 1512507760, locationId: 14, exertion: 'moderate', minutes: 120,
+      },
+      {
+        time: 1512398760, locationId: 289, exertion: 'high', minutes: 30,
+      },
+    ],
+  },
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <AddForm />
-        <Blocks />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div className="App">
+    <AddForm />
+    <Blocks />
+  </div>
+);
 
-class WrappedAppWithProvider extends React.Component {
-  render = () => (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-}
+const WrappedAppWithProvider = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
 export default WrappedAppWithProvider;

@@ -1,37 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Provider, connect } from 'react-redux';
-import { addDatesToLocation, addBlock } from './Actions';
+import { connect } from 'react-redux';
+import moment from 'moment-es6';
+import { addBlock } from './Actions';
 import LocationSelect from './LocationSelect';
 import ExertionSelect from './ExertionSelect';
-import moment from 'moment-es6';
 
 class AddForm extends Component {
+  static propTypes = {
+    addBlock: PropTypes.func.isRequired,
+  }
 
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  static propTypes = {
-    addBlock: PropTypes.func.isRequired,
-  }
-
   onLocationChange = (event) => {
     this.setState({
-      location: parseInt(event.target.value, 10)
+      location: parseInt(event.target.value, 10),
     });
   };
 
   onExertionChange = (event) => {
     this.setState({
-      exertionLevel: event.target.value
+      exertionLevel: event.target.value,
     });
   };
 
   onTimeChange = (event) => {
     this.setState({
-      time: event.target.value
+      time: event.target.value,
     });
   };
 
@@ -52,21 +51,25 @@ class AddForm extends Component {
       <form onSubmit={this.onSubmit}>
         <input type="time" onChange={this.onTimeChange} />
         <input type="number" onChange={this.onMinutesChange} placeholder="minutes" />
-        <LocationSelect onChange={this.onLocationChange}/>
+        <LocationSelect onChange={this.onLocationChange} />
         <ExertionSelect onChange={this.onExertionChange} />
-        <button onClick={this.onSubmit} disabled={!this.state.location || !this.state.exertionLevel || !this.state.time}>
+        <button
+          onClick={this.onSubmit}
+          disabled={!this.state.location || !this.state.exertionLevel || !this.state.time}
+        >
           Add
         </button>
       </form>
     );
   }
-
 }
 
 const mapStateToProps = state => state;
 
-const mapDispatchToProps = (dispatch) => ({
-  addBlock: (dates, locationId, time, minutes) => { dispatch(addBlock(dates, locationId, time, minutes)); }
+const mapDispatchToProps = dispatch => ({
+  addBlock: (dates, locationId, time, minutes) => {
+    dispatch(addBlock(dates, locationId, time, minutes));
+  },
 });
 
 

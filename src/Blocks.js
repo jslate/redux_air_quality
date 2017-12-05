@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Provider, connect } from 'react-redux';
-import { addDatesToLocation, addBlock } from './Actions';
-import LocationSelect from './LocationSelect';
-import ExertionSelect from './ExertionSelect';
+import { connect } from 'react-redux';
 import moment from 'moment-es6';
 
 class Blocks extends Component {
@@ -17,11 +14,12 @@ class Blocks extends Component {
   }
 
   getLocationName(id) {
-    return this.props.locations.find((location) => location.id === id).name;
+    return this.props.locations.find(location => location.id === id).name;
   }
 
   getAirQuality(id) {
-    return this.props.locations.find((location) => location.id === id).dates[0].airQuality.toLowerCase();
+    return this.props.locations.find(location => location.id === id)
+      .dates[0].airQuality.toLowerCase();
   }
 
   getBackgroundColor(exertion) {
@@ -32,6 +30,8 @@ class Blocks extends Component {
         return '#ddffff';
       case 'high':
         return '#ffffdd';
+      default:
+        return null;
     }
   }
 
@@ -41,7 +41,7 @@ class Blocks extends Component {
 
 
   getBlockClassNames(block) {
-    return `block ${this.getAirQuality(block.locationId)}`
+    return `block ${this.getAirQuality(block.locationId)}`;
   }
 
   getIcon(block) {
@@ -52,22 +52,26 @@ class Blocks extends Component {
         return '/images/jogging.svg';
       case 'high':
         return '/images/running.svg';
-
+      default:
+        return null;
     }
   }
 
   render() {
     return (
       <div>
-        {this.props.blocks.sort((a,b) => {
-          if (a.time < b.time) { return -1; }
-          else if (a.time > b.time) { return 1; }
+        {this.props.blocks.sort((a, b) => {
+          if (a.time < b.time) { return -1; } else if (a.time > b.time) { return 1; }
           return 0;
         }).map((block, index) => (
-          <div className={this.getBlockClassNames(block)} key={index} style={{height: this.getBlockHeight(block), marginTop: 5}}>
-            <img src={this.getIcon(block)} style={{height: 40, float: 'right'}} />
+          <div
+            className={this.getBlockClassNames(block)}
+            key={index}
+            style={{ height: this.getBlockHeight(block) }}
+          >
+            <img alt={`${block.exertion} exertion`} src={this.getIcon(block)} style={{ height: 40, float: 'right' }} />
             {moment.unix(block.time).format('h:mm a')} in {this.getLocationName(block.locationId)}, {block.minutes} minutes
-            <br/>
+            <br />
             Air quality: {this.getAirQuality(block.locationId)}
           </div>
         ))}
@@ -76,7 +80,7 @@ class Blocks extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   blocks: state.blocks,
   locations: state.locations,
 });

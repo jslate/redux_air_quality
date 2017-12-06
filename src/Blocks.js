@@ -10,7 +10,9 @@ class Blocks extends Component {
       exertion: PropTypes.string.isRequired,
       time: PropTypes.number.isRequired,
     })).isRequired,
-    locations: PropTypes.array,
+    locations: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    })).isRequired,
   }
 
   getLocationName(id) {
@@ -20,19 +22,6 @@ class Blocks extends Component {
   getAirQuality(id) {
     return this.props.locations.find(location => location.id === id)
       .dates[0].airQuality.toLowerCase();
-  }
-
-  getBackgroundColor(exertion) {
-    switch (exertion) {
-      case 'low':
-        return '#ffddff';
-      case 'moderate':
-        return '#ddffff';
-      case 'high':
-        return '#ffffdd';
-      default:
-        return null;
-    }
   }
 
   getBlockHeight(block) {
@@ -69,7 +58,7 @@ class Blocks extends Component {
             key={index}
             style={{ height: this.getBlockHeight(block) }}
           >
-            <img alt={`${block.exertion} exertion`} src={this.getIcon(block)} style={{ height: 40, float: 'right' }} />
+            <img alt={`${block.exertion} exertion`} src={this.getIcon(block)} style={{ height: 40 }} />
             {moment.unix(block.time).format('h:mm a')} in {this.getLocationName(block.locationId)}, {block.minutes} minutes
             <br />
             Air quality: {this.getAirQuality(block.locationId)}

@@ -5,7 +5,7 @@ import './App.css';
 import Locations from './Locations';
 import AddForm from './AddForm';
 import Blocks from './Blocks';
-import airQualityApp from './reducers';
+import airQuality from './reducers';
 import UndoRedo from './UndoRedo';
 
 const AppComponent = () => (
@@ -16,9 +16,8 @@ const AppComponent = () => (
   </div>
 );
 
-
 const store = createStore(
-  airQualityApp,
+  airQuality,
   { locations: Locations },
    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );

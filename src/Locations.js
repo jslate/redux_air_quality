@@ -6,9 +6,6 @@ const Locations = [
   {
     name: 'Amherst',
     id: 213,
-    dates: [
-      { date: '12/05/2017', airQuality: 'moderate' },
-    ],
   },
   {
     name: 'Aquinnah', id: 818,
@@ -16,9 +13,6 @@ const Locations = [
   {
     name: 'Boston',
     id: 14,
-    dates: [
-      { date: '12/05/2017', airQuality: 'unhealthy' },
-    ],
   },
   {
     name: 'Brockton', id: 755,
@@ -32,9 +26,6 @@ const Locations = [
   {
     name: 'Fall River',
     id: 289,
-    dates: [
-      { date: '12/05/2017', airQuality: 'hazardous' },
-    ],
   },
   {
     name: 'Greenfield', id: 747,

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment-es6';
+import { removeBlock } from './Actions';
+
 
 class Blocks extends Component {
   static propTypes = {
@@ -13,6 +15,7 @@ class Blocks extends Component {
     locations: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
     })).isRequired,
+    removeBlock: PropTypes.func.isRequired,
   }
 
   getLocationName(id) {
@@ -25,7 +28,7 @@ class Blocks extends Component {
   }
 
   getBlockHeight(block) {
-    return block.minutes < 50 ? 50 : block.minutes;
+    return block.minutes < 70 ? 70 : block.minutes;
   }
 
 
@@ -52,14 +55,18 @@ class Blocks extends Component {
         {this.props.blocks.sort((a, b) => {
           if (a.time < b.time) { return -1; } else if (a.time > b.time) { return 1; }
           return 0;
-        }).map((block, index) => (
+        }).map(block => (
           <div
             className={this.getBlockClassNames(block)}
-            key={index}
+            key={block.id}
             style={{ height: this.getBlockHeight(block) }}
           >
-            <img alt={`${block.exertion} exertion`} src={this.getIcon(block)} style={{ height: 40 }} />
-            {moment.unix(block.time).format('h:mm a')} in {this.getLocationName(block.locationId)}, {block.minutes} minutes
+            <div className="icon-container">
+              <img alt={`${block.exertion} exertion`} src={this.getIcon(block)} style={{ height: 40 }} />
+              <br />
+              <button onClick={() => this.props.removeBlock(block.id)}>remove</button>
+            </div>
+            {moment.unix(block.time).format('h:mm a')} in {this.getLocationName(block.locationId)}, {block.minutes} minutes, id: {block.id}
             <br />
             Air quality: {this.getAirQuality(block.locationId)}
           </div>
@@ -74,4 +81,8 @@ const mapStateToProps = state => ({
   locations: state.locations,
 });
 
-export default connect(mapStateToProps)(Blocks);
+const mapDispatchToProps = dispatch => ({
+  removeBlock: (id) => { dispatch(removeBlock(id)); },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Blocks);

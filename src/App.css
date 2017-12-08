@@ -7,8 +7,13 @@
   margin: 10px;
 }
 
-.block img {
+.block .icon-container {
   float: right;
+  text-align: right;
+}
+
+.block .icon-container img {
+  margin-bottom: 10px;
 }
 
 .block.good {

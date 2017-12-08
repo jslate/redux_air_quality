@@ -6,11 +6,13 @@ import Locations from './Locations';
 import AddForm from './AddForm';
 import Blocks from './Blocks';
 import airQualityApp from './reducers';
+import UndoRedo from './UndoRedo';
 
 const AppComponent = () => (
   <div className="App">
     <AddForm />
     <Blocks />
+    <UndoRedo />
   </div>
 );
 

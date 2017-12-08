@@ -77,7 +77,7 @@ class Blocks extends Component {
 }
 
 const mapStateToProps = state => ({
-  blocks: state.blocks,
+  blocks: state.blocks.present,
   locations: state.locations,
 });
 
